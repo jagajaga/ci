@@ -1,6 +1,7 @@
 /* Generate Haskell build instructions for the continuous integration system Hydra. */
 
 { gitSource, expressionPath
+, serokellCoreSrc
 , supportedPlatforms ? ["x86_64-linux"]
 , supportedCompilers ? ["ghc7103"]
 }:
@@ -10,7 +11,12 @@ let
 
   genBuild = system: compiler: path: gitSource:
     let pkgs = import <nixpkgs> { inherit system; };
-        haskellPackages = pkgs.lib.getAttrFromPath ["haskell" "packages" compiler] pkgs;
+        haskellPackages' = pkgs.lib.getAttrFromPath ["haskell" "packages" compiler] pkgs;
+        haskellPackages  = haskellPackages'.override {
+          overrides = self: super: {
+            serokell-core = self.callPackage serokellCoreSrc {};
+          };
+      };
     in
       haskellPackages.callPackage path {
         mkDerivation = expr: haskellPackages.mkDerivation (expr // {
