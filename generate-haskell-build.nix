@@ -18,13 +18,8 @@ let
           };
       };
     in
-      haskellPackages.callPackage path {
-        mkDerivation = expr: haskellPackages.mkDerivation (expr // {
-         src = gitSource;
-         version = gitSource.gitTag;
-        });
-      };
+      haskellPackages.callPackage path;
 in
   genAttrs supportedCompilers (compiler:
     genAttrs supportedPlatforms (system:
-      genBuild system compiler (gitSource/default.nix) gitSource))
+      genBuild system compiler gitSource))
