@@ -1,6 +1,6 @@
 /* Generate Haskell build instructions for the continuous integration system Hydra. */
 
-{ gitSource, expressionPath
+{ gitSource
 , serokellCoreSrc
 , supportedPlatforms ? ["x86_64-linux"]
 , supportedCompilers ? ["ghc7103"]
@@ -27,4 +27,4 @@ let
 in
   genAttrs supportedCompilers (compiler:
     genAttrs supportedPlatforms (system:
-      genBuild system compiler expressionPath gitSource))
+      genBuild system compiler (gitSource/default.nix) gitSource))

@@ -8,7 +8,6 @@ in
   rscoin = import ./generate-haskell-build.nix {
     inherit serokellCoreSrc;
     gitSource = rscoinSrc;
-    expressionPath = rscoinSrc/default.nix;
   };
 
 }
