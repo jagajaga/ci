@@ -9,7 +9,7 @@
 let
   genAttrs = (import <nixpkgs> { }).lib.genAttrs;
 
-  genBuild = system: compiler: path: gitSource:
+  genBuild = system: compiler: path:
     let pkgs = import <nixpkgs> { inherit system; };
         haskellPackages' = pkgs.lib.getAttrFromPath ["haskell" "packages" compiler] pkgs;
         haskellPackages  = haskellPackages'.override {
