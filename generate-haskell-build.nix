@@ -9,16 +9,16 @@
 let
   genAttrs = (import <nixpkgs> { }).lib.genAttrs;
 
-  genBuild = system: compiler: path:
+  genBuild = system: compiler: path: 
     let pkgs = import <nixpkgs> { inherit system; };
         haskellPackages' = pkgs.lib.getAttrFromPath ["haskell" "packages" compiler] pkgs;
         haskellPackages  = haskellPackages'.override {
           overrides = self: super: {
-            serokell-core = self.callPackage serokellCoreSrc {};
+            serokell-core = self.callPackage serokellCoreSrc { };
           };
       };
     in
-      haskellPackages.callPackage path;
+      haskellPackages.callPackage path { };
 in
   genAttrs supportedCompilers (compiler:
     genAttrs supportedPlatforms (system:
