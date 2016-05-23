@@ -15,6 +15,21 @@ let
         haskellPackages  = haskellPackages'.override {
           overrides = self: super: {
             serokell-core = self.callPackage serokellCoreSrc { };
+            msgpack = super.Chart.override {
+              mkDerivation = (attrs: self.mkDerivation (attrs // { 
+                src = ./msgpack-haskell/msgpack/.;
+              }));
+            };
+            msgpack-aeson = super.Chart.override {
+              mkDerivation = (attrs: self.mkDerivation (attrs // { 
+                src = ./msgpack-haskell/msgpack-aeson/.;
+              }));
+            };
+            msgpack-rpc = super.Chart.override {
+              mkDerivation = (attrs: self.mkDerivation (attrs // { 
+                src = ./msgpack-haskell/msgpack-rpc/.;
+              }));
+            };
           };
       };
     in
