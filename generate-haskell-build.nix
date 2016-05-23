@@ -31,9 +31,16 @@ let
               }));
             };
           };
-      };
+        };
+        profiledHaskellPackages = haskellPackages.override {
+            overrides = self: super: {
+              mkDerivation = args: super.mkDerivation (args // {
+                enableLibraryProfiling = true;
+              });
+          };
+        };
     in
-      haskellPackages.callPackage path { };
+      profiledHaskellPackages.callPackage path { };
 in
   genAttrs supportedCompilers (compiler:
     genAttrs supportedPlatforms (system:
