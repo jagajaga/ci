@@ -15,17 +15,17 @@ let
         haskellPackages  = haskellPackages'.override {
           overrides = self: super: {
             serokell-core = self.callPackage serokellCoreSrc { };
-            msgpack = super.Chart.override {
+            msgpack = super.msgpack.override {
               mkDerivation = (attrs: self.mkDerivation (attrs // { 
                 src = ./msgpack-haskell/msgpack/.;
               }));
             };
-            msgpack-aeson = super.Chart.override {
+            msgpack-aeson = super.msgpack-aeson.override {
               mkDerivation = (attrs: self.mkDerivation (attrs // { 
                 src = ./msgpack-haskell/msgpack-aeson/.;
               }));
             };
-            msgpack-rpc = super.Chart.override {
+            msgpack-rpc = super.msgpack-rpc.override {
               mkDerivation = (attrs: self.mkDerivation (attrs // { 
                 src = ./msgpack-haskell/msgpack-rpc/.;
               }));
